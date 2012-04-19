@@ -21,8 +21,9 @@ module OmniAuth
           :nickname     => raw_info['screen_name'],
           :name         => raw_info['name'],
           :location     => raw_info['location'],
-          :image        => raw_info['profile_image_url'],
+          :image        => raw_info['avatar_large'],
           :description  => raw_info['description'],
+          :gender       => raw_info['gender'],
           :urls => {
             'Blog'      => raw_info['url'],
             'Weibo'     => raw_info['domain'].present?? "http://weibo.com/#{raw_info['domain']}" : "http://weibo.com/u/#{raw_info['id']}",

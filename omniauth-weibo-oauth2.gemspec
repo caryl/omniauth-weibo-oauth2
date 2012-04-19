@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/omniauth-weibo-oauth2/version', __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
+require "omniauth-weibo-oauth2/version"
 
 Gem::Specification.new do |gem|
   gem.authors       = "Bin He"

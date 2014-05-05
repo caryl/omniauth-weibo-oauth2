@@ -44,6 +44,26 @@ module OmniAuth
         @uid ||= access_token.get('/2/account/get_uid.json').parsed["uid"]
         @raw_info ||= access_token.get("/2/users/show.json", :params => {:uid => @uid}).parsed
       end
+
+      ##
+      # You can pass +display+, +with_offical_account+ or +state+ params to the auth request, if
+      # you need to set them dynamically. You can also set these options
+      # in the OmniAuth config :authorize_params option.
+      #
+      # /auth/weibo?display=mobile&with_offical_account=1
+      #
+      def authorize_params
+        super.tap do |params|
+          %w[display with_offical_account state forcelogin].each do |v|
+            if request.params[v]
+              params[v.to_sym] = request.params[v]
+
+              # to support omniauth-oauth2's auto csrf protection
+              session['omniauth.state'] = params[:state] if v == 'state'
+            end
+          end
+        end
+      end
       
     end
   end
